@@ -8,11 +8,17 @@ export class CreateUserUseCase {
     private passwordService: IPasswordService
   ) {}
 
-  async execute(userData: CreateUserDto): Promise<{ id: string; email: string; name: string }> {
-    // Check if user already exists
-    const existingUser = await this.userRepository.findByEmail(userData.email);
-    if (existingUser) {
+  async execute(userData: CreateUserDto): Promise<{ id: string; email: string; name: string; username: string }> {
+    // Check if user already exists by email
+    const existingUserByEmail = await this.userRepository.findByEmail(userData.email);
+    if (existingUserByEmail) {
       throw new Error('User already exists with this email');
+    }
+
+    // Check if username already exists
+    const existingUserByUsername = await this.userRepository.findByUsername(userData.username);
+    if (existingUserByUsername) {
+      throw new Error('Username already exists');
     }
 
     // Hash password
@@ -22,6 +28,7 @@ export class CreateUserUseCase {
     const user = await this.userRepository.create({
       email: userData.email,
       name: userData.name,
+      username: userData.username,
       password: hashedPassword,
     });
 
@@ -29,6 +36,7 @@ export class CreateUserUseCase {
       id: user.id,
       email: user.email,
       name: user.name,
+      username: user.username,
     };
   }
 }

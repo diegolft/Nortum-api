@@ -102,6 +102,7 @@ Registra um novo usuário.
 {
   "email": "user@example.com",
   "name": "John Doe",
+  "username": "johndoe",
   "password": "password123"
 }
 ```
@@ -114,7 +115,7 @@ Faz login do usuário.
 
 ```json
 {
-  "email": "user@example.com",
+  "username": "johndoe",
   "password": "password123"
 }
 ```
@@ -128,7 +129,8 @@ Faz login do usuário.
   "user": {
     "id": "uuid",
     "email": "user@example.com",
-    "name": "John Doe"
+    "name": "John Doe",
+    "username": "johndoe"
   }
 }
 ```

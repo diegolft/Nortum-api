@@ -10,9 +10,9 @@ export class LoginUseCase {
     private jwtService: IJwtService
   ) {}
 
-  async execute(loginData: LoginDto): Promise<{ token: string; user: { id: string; email: string; name: string } }> {
-    // Find user by email
-    const user = await this.userRepository.findByEmail(loginData.email);
+  async execute(loginData: LoginDto): Promise<{ token: string; user: { id: string; email: string; name: string; username: string } }> {
+    // Find user by username
+    const user = await this.userRepository.findByUsername(loginData.username);
     if (!user) {
       throw new Error('Invalid credentials');
     }
@@ -35,6 +35,7 @@ export class LoginUseCase {
         id: user.id,
         email: user.email,
         name: user.name,
+        username: user.username,
       },
     };
   }
