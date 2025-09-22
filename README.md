@@ -50,19 +50,16 @@ Edite o arquivo `.env` com suas configurações:
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=postgres
-DB_PASSWORD=password
-DB_NAME=nortum_db
+DB_PASSWORD=postgres
+DB_DATABASE=nortum_db
 
 # JWT Configuration
-JWT_SECRET=your-super-secret-jwt-key-here
+JWT_SECRET=your-super-secret-jwt-key-here-change-in-production
 JWT_EXPIRES_IN=7d
 
-# Application Configuration
+# Server Configuration
 PORT=3000
 NODE_ENV=development
-
-# CORS Configuration
-CORS_ORIGIN=http://localhost:3000
 ```
 
 4. Configure o banco de dados PostgreSQL
@@ -101,7 +98,7 @@ Registra um novo usuário.
 ```json
 {
   "email": "user@example.com",
-  "name": "John Doe",
+  "fullName": "John Doe",
   "username": "johndoe",
   "password": "password123"
 }
@@ -127,9 +124,9 @@ Faz login do usuário.
   "message": "Login successful",
   "token": "jwt-token-here",
   "user": {
-    "id": "uuid",
+    "id": 1,
     "email": "user@example.com",
-    "name": "John Doe",
+    "fullName": "John Doe",
     "username": "johndoe"
   }
 }
@@ -138,6 +135,16 @@ Faz login do usuário.
 #### GET /api/health
 
 Verifica o status da API.
+
+**Response:**
+
+```json
+{
+  "status": "OK",
+  "timestamp": "2024-01-01T00:00:00.000Z",
+  "service": "Nortum API"
+}
+```
 
 ## 🔧 Scripts Disponíveis
 
@@ -151,7 +158,6 @@ Verifica o status da API.
 ## 🛡️ Segurança
 
 - **Helmet** para headers de segurança
-- **CORS** configurado
 - **Rate limiting** implementado
 - **JWT** para autenticação
 - **bcrypt** para hash de senhas

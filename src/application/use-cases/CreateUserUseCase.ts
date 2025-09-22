@@ -8,7 +8,7 @@ export class CreateUserUseCase {
     private passwordService: IPasswordService
   ) {}
 
-  async execute(userData: CreateUserDto): Promise<{ id: string; email: string; name: string; username: string }> {
+  async execute(userData: CreateUserDto): Promise<{ id: number; email: string; fullName: string; username: string }> {
     // Check if user already exists by email
     const existingUserByEmail = await this.userRepository.findByEmail(userData.email);
     if (existingUserByEmail) {
@@ -27,7 +27,7 @@ export class CreateUserUseCase {
     // Create user
     const user = await this.userRepository.create({
       email: userData.email,
-      name: userData.name,
+      fullName: userData.fullName,
       username: userData.username,
       password: hashedPassword,
     });
@@ -35,7 +35,7 @@ export class CreateUserUseCase {
     return {
       id: user.id,
       email: user.email,
-      name: user.name,
+      fullName: user.fullName,
       username: user.username,
     };
   }

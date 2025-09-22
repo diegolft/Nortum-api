@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
-import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { AppDataSource } from './infrastructure/config/database';
@@ -17,10 +16,6 @@ const app = express();
 
 // Security middleware
 app.use(helmet());
-app.use(cors({
-  origin: config.cors.origin,
-  credentials: true,
-}));
 
 // Rate limiting
 const limiter = rateLimit({

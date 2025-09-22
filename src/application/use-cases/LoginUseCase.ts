@@ -10,7 +10,7 @@ export class LoginUseCase {
     private jwtService: IJwtService
   ) {}
 
-  async execute(loginData: LoginDto): Promise<{ token: string; user: { id: string; email: string; name: string; username: string } }> {
+  async execute(loginData: LoginDto): Promise<{ token: string; user: { id: number; email: string; fullName: string; username: string } }> {
     // Find user by username
     const user = await this.userRepository.findByUsername(loginData.username);
     if (!user) {
@@ -34,7 +34,7 @@ export class LoginUseCase {
       user: {
         id: user.id,
         email: user.email,
-        name: user.name,
+        fullName: user.fullName,
         username: user.username,
       },
     };
